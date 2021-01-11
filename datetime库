@@ -1,0 +1,1 @@
+datetime.today().strftime('%Y%m%d')#格式化时间
