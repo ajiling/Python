@@ -3,3 +3,47 @@ selenium
 
  frame是整个页面的框架，iframe是内嵌的网页元素，也可以说是内嵌的框架。
  driver.switch_to.frame() 切换frame
+ 
+ 
+ 获取cookie可以通过内置的函数get_cookies()，它得到的是一组cookie,是由cookie组成的列表。单个的cookie是字典组成的，所有get_cookies()返回值是由字典组成的列表。
+
+
+
+ 页面等待
+ wait = WebDriverWait(driver, 10)
+ wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="login"]/div[2]/div/div[1]/a[1]')))
+ wait.until(EC.element_to_be_clickable((By.ID, 'lbNormal')))
+ driver.find_element_by_id('lbNormal').click()
+ 
+ 
+ #
+ options = webdriver.ChromeOptions()
+ options.add_experimental_option("prefs", {"profile.managed_default_content_settings.images": 2}) # 不加载图片,加快访问速度
+ options.add_experimental_option('excludeSwitches', ['enable-automation']) # 此步骤很重要，设置为开发者模式，防止被各大网站识别出来使用了Selenium
+ 
+ 
+ 
+ 
+ # 模拟向下滑动浏览
+    def swipe_down(self,second):
+        for i in range(int(second/0.1)):
+            #根据i的值，模拟上下滑动
+            if(i%2==0):
+                js = "var q=document.documentElement.scrollTop=" + str(300+400*i)
+            else:
+                js = "var q=document.documentElement.scrollTop=" + str(200 * i)
+            self.browser.execute_script(js)
+            sleep(0.1)
+
+        js = "var q=document.documentElement.scrollTop=100000"
+        self.browser.execute_script(js)
+        sleep(0.1)
+      
+      
+      
+ swipe_button = self.browser.find_element_by_id('nc_1_n1z') #获取滑动拖动控件
+ #模拟拽托
+ action = ActionChains(self.browser) # 实例化一个action对象
+ action.click_and_hold(swipe_button).perform() # perform()用来执行ActionChains中存储的行为
+ action.reset_actions()
+ action.move_by_offset(580, 0).perform() # 移动滑块
