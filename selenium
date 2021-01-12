@@ -1,0 +1,5 @@
+selenium
+
+
+ frame是整个页面的框架，iframe是内嵌的网页元素，也可以说是内嵌的框架。
+ driver.switch_to.frame() 切换frame
